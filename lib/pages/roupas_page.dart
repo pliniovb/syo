@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/roupa.dart';
+import 'package:flutter_application_1/pages/foto_page.dart';
 import 'package:flutter_application_1/repositories/favoritas_repository.dart';
 import 'package:flutter_application_1/repositories/roupa_repository.dart';
 import 'package:provider/provider.dart';
@@ -110,7 +111,23 @@ class _RoupasPageState extends State<RoupasPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ))
-          : null,
+          : FloatingActionButton.extended(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FotoPage(),
+                      fullscreenDialog: true,
+                    ));
+              },
+              icon: const Icon(Icons.camera_alt),
+              label: const Text(
+                'Guarde se outfit!',
+                style: TextStyle(
+                  letterSpacing: 0,
+                  fontWeight: FontWeight.bold,
+                ),
+              )),
     );
   }
 }
