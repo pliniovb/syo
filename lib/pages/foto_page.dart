@@ -27,13 +27,13 @@ class _FotoPageState extends State<FotoPage> {
       cameras = await availableCameras();
       _startCamera();
     } on CameraException catch (e) {
-      print(e.description);
+      debugPrint(e.description);
     }
   }
 
   _startCamera() {
     if (cameras.isEmpty) {
-      print('Camera não encontrada');
+      debugPrint('Camera não encontrada');
     } else {
       _previewCamera(cameras.first);
     }
@@ -49,7 +49,7 @@ class _FotoPageState extends State<FotoPage> {
     try {
       await cameraController.initialize();
     } on CameraException catch (e) {
-      print(e.description);
+      debugPrint(e.description);
     }
 
     if (mounted) {
@@ -83,7 +83,7 @@ class _FotoPageState extends State<FotoPage> {
   }
 
   _arquivoWidget() {
-    return Container(
+    return SizedBox(
       child: imagem == null
           ? _cameraPreviewWidget()
           : Image.file(File(imagem!.path), fit: BoxFit.contain),
@@ -130,7 +130,7 @@ class _FotoPageState extends State<FotoPage> {
         XFile file = await cameraController.takePicture();
         if (mounted) setState(() => imagem = file);
       } on CameraException catch (e) {
-        print(e.description);
+        debugPrint(e.description);
       }
     }
   }
