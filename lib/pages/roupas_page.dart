@@ -122,7 +122,7 @@ class _RoupasPageState extends State<RoupasPage> {
               },
               icon: const Icon(Icons.camera_alt),
               label: const Text(
-                'Guarde se outfit!',
+                'Guarde seu outfit!',
                 style: TextStyle(
                   letterSpacing: 0,
                   fontWeight: FontWeight.bold,

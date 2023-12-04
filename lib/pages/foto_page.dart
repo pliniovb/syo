@@ -46,6 +46,7 @@ class _FotoPageState extends State<FotoPage> {
       enableAudio: false,
       imageFormatGroup: ImageFormatGroup.jpeg,
     );
+    controller = cameraController;
     try {
       await cameraController.initialize();
     } on CameraException catch (e) {
@@ -55,31 +56,6 @@ class _FotoPageState extends State<FotoPage> {
     if (mounted) {
       setState(() {});
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    size = MediaQuery.of(context).size;
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Roupa'),
-        backgroundColor: Colors.grey[900],
-        centerTitle: true,
-        elevation: 0,
-      ),
-      body: Container(
-        color: Colors.grey[900],
-        child: Center(
-          child: _arquivoWidget(),
-        ),
-      ),
-      floatingActionButton: (imagem != null)
-          ? FloatingActionButton.extended(
-              onPressed: () => Navigator.pop(context), label: Text('Finalizar'))
-          : null,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
   }
 
   _arquivoWidget() {
@@ -92,8 +68,24 @@ class _FotoPageState extends State<FotoPage> {
 
   _cameraPreviewWidget() {
     final CameraController? cameraController = controller;
-    if (cameraController == null || !cameraController.value.isInitialized) {
-      return Text('Widget para camera nao disponível');
+    if (cameraController == null) {
+      return const Text(
+        'Camera não disponível',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 24.0,
+          fontWeight: FontWeight.w900,
+        ),
+      );
+    } else if (!cameraController.value.isInitialized) {
+      return const Text(
+        'Camera disponível não inicializada',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 24.0,
+          fontWeight: FontWeight.w900,
+        ),
+      );
     } else {
       return Stack(
         alignment: AlignmentDirectional.bottomCenter,
@@ -133,5 +125,30 @@ class _FotoPageState extends State<FotoPage> {
         debugPrint(e.description);
       }
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Roupa'),
+        backgroundColor: Colors.grey[900],
+        centerTitle: true,
+        elevation: 0,
+      ),
+      body: Container(
+        color: Colors.grey[900],
+        child: Center(
+          child: _arquivoWidget(),
+        ),
+      ),
+      floatingActionButton: (imagem != null)
+          ? FloatingActionButton.extended(
+              onPressed: () => Navigator.pop(context), label: Text('Finalizar'))
+          : null,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
   }
 }
